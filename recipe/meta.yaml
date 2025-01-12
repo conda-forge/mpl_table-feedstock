@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/mpl_table-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/mpl_table-{{ version }}.tar.gz
   sha256: 5dea25d4f964b7ff768c54cd588cd8f758721a82b30843e1dc30aad392b2b566
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6,<4.0
+    - python {{ python_min }}
     - pip
     - poetry-core >=1.0.0
   run:
-    - python >=3.6,<4.0
+    - python >={{ python_min }},<4.0
     - matplotlib-base >=3.4.3,<4.0.0
     - pandas >=1.3.4,<2.0.0
 
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/geo7/mpl_table
